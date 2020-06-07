@@ -61,7 +61,7 @@ workflows:
   main:
     jobs:
       - build-and-test
-      - build-and-push-docker-image
+      - build-and-push-docker-image:
           requires:
             - build-and-test
           filters:
