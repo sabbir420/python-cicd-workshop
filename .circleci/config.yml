@@ -1,19 +1,44 @@
 version: 2.1
 
-orbs:
-  python: circleci/python@0.2.1
-
 jobs:
   build-and-test:
-    executor: python/default
+    docker:
+      - image: circleci/python:3.7
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
       - run:
-          command: ./manage.py test
-          name: Test
+          name: Setup Enviroment
+          command: |
+            echo 'export IMAGE_NAME=python-cicd-workshop' >> $BASH_ENV 
+            virtualenv myapp
+            . myapp/bin/activate
+
+      - run:
+          name: Install Python Dependencies
+          command: |
+            make install
+
+      - run:
+          name: Testing the App
+          command: |
+            . myapp/bin/activate
+            make test
+            
+      - run:
+          name: Lint the App
+          command: |
+            . myapp/bin/activate
+            #Install hadolint
+            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+                chmod +x /bin/hadolint
+            make lint
+
+      - run:
+          name: Run tests
+          command: |
+            . myapp/bin/activate
+            python test_my_app.py
+
 
 workflows:
   main:
