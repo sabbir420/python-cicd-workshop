@@ -50,7 +50,9 @@ jobs:
       - run:
           name: Build and Push Docker Image
           command: |
+            virtualenv myapp
             . myapp/bin/activate
+            make install
             pyinstaller -F my_app.py
             docker build -t $DOCKER_LOGIN/$IMAGE_NAME .
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
