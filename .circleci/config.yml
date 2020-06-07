@@ -29,12 +29,6 @@ jobs:
           paths:
             - ./myapp
           key: v1-dependencies-{{ checksum "requirements.txt" }}
-
-      - run:
-          name: Testing the App
-          command: |
-            . myapp/bin/activate
-            make test
             
       - run:
           name: Lint the App
