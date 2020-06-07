@@ -17,7 +17,7 @@ install:
 
 test:
 	# Additional, optional, tests could go here
-	python -m pytest test_*.py
+	python -m pytest *.py
 	#python -m pytest --nbval notebook.ipynb
 
 lint:
