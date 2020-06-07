@@ -54,8 +54,9 @@ jobs:
             . myapp/bin/activate
             make install
             pyinstaller -F my_app.py
-            docker build -t $DOCKER_LOGIN/$IMAGE_NAME .
+            docker build -t $IMAGE_NAME .
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
+            docker tag $IMAGE_NAME $DOCKER_LOGIN/$IMAGE_NAME
             docker push $DOCKER_LOGIN/$IMAGE_NAME
 
 
