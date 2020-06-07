@@ -17,7 +17,7 @@ install:
 
 test:
 	# Additional, optional, tests could go here
-	python -m pytest *.py
+	python -m pytest my_app.py
 	#python -m pytest --nbval notebook.ipynb
 
 lint:
@@ -27,6 +27,5 @@ lint:
 	# This is a linter for Python source code linter: https://www.pylint.org/
 	# This should be run from inside a virtualenv
 	pylint --disable=R,C,w1309,w1203 my_app.py
-	pylint --disable=R,C,w1309,w1203 test_my_app.py
 
 all: install lint test
